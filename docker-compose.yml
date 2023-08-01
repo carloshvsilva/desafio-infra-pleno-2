@@ -1,0 +1,65 @@
+version: '3.8'
+
+networks:
+  weinnovate-net:
+    driver: bridge
+
+services:
+  # configuração container 01 - mongo_server
+      # MongoDB na versão 6.0.8
+      # Configurações:
+        # Network: weinnovate-net
+        # Username: weinnovate
+        # Password: weinnovate
+  mongo_server:
+    image: mongo:6.0.8
+    container_name: mongo-server
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=weinnovate
+      - MONGO_INITDB_ROOT_PASSWORD=weinnovate
+    networks:
+      - weinnovate-net
+
+  # configuração container 02 - app_server
+      # NodeJS na versão 18-alpine
+        # utilizando o framework NestJS
+      # Configurações:
+        # Network: weinnovate-net
+        # Depends: mongo-server
+  app_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_server
+    networks:
+      - weinnovate-net
+    depends_on:
+      - mongo_server
+    
+
+  # configuração container 03 - proxy_server
+      # Nginx na versão 1-25.1
+        # Deverá ser configurado para atuar como proxy de requisições HTTP, 
+        # realizando proxy de chamadas na porta 80 para o app_server na porta 3000
+      # Configurações:
+        # Network: weinnovate-net 
+  
+  proxy_server:
+    image: nginx:1.25.1
+    container_name: proxy_server
+    ports:
+      - 80:80
+    #environment:
+    #  - NGINX_HOST=app_server
+    #  - NGINX_PORT=3000
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d/
+    networks:
+      - weinnovate-net
+    depends_on:
+      - app_server
+
+
+#Nginx versão 1-25.1
+  #80 para 3000 do appserver
+
