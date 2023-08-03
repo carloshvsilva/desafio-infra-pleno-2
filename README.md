@@ -24,7 +24,7 @@ O ambiente consiste em três containers:
     ```
   - Acessar a rais do repositório onde contém o arquivo `docker-compose.yml` e executar o Docker Compose
     ```cmd
-    docker-compose up -d
+    docker compose up -d
     ```
     
  # :wrench: Descrição dos arquivos
