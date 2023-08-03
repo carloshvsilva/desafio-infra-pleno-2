@@ -20,11 +20,11 @@ O ambiente consiste em três containers:
   # :arrow_forward: Executando o projeto
   - Realizar um clone deste repositório
     ```cmd
-    git clone https://github.com/carloshvsilva/desafio-infra-pleno-2.git
+    sudo git clone https://github.com/carloshvsilva/desafio-infra-pleno-2.git
     ```
   - Acessar a rais do repositório onde contém o arquivo `docker-compose.yml` e executar o Docker Compose
     ```cmd
-    docker compose up -d
+    sudo docker compose up -d
     ```
     
  # :wrench: Descrição dos arquivos
