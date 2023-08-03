@@ -49,9 +49,6 @@ services:
     container_name: proxy_server
     ports:
       - 80:80
-    #environment:
-    #  - NGINX_HOST=app_server
-    #  - NGINX_PORT=3000
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
     networks:
